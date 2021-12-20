@@ -49,7 +49,7 @@ namespace OPENCL {
 
         private CLContext GetContext(CLDevice Gpu_1){
             CLResultCode errorCode;
-            CLContext Gpu_context = CL.CreateContext(new IntPtr(), 1, new CLDevice[] { Gpu_1 }, new IntPtr(), IntPtr.Zero, out errorCode);
+            CLContext Gpu_context = CL.CreateContext((IntPtr)null, 1, new CLDevice[] { Gpu_1 }, (IntPtr)null, (IntPtr)null, out errorCode);
             if (errorCode != CLResultCode.Success) {
                 throw new Exception("Impossible de créer le contexte");
             }
@@ -67,16 +67,19 @@ namespace OPENCL {
             return commandQueue;
         }
     
-        public CLBuffer CreateBuffer<T>(MemoryFlags mFlag, T[] array) where T : unmanaged{
+        public CLBuffer CreateBuffer<T>(MemoryFlags mFlag, T[] array){
             CLResultCode err = new CLResultCode();
 
-            CLBuffer temp = CL.CreateBuffer<T>(Gpu_context, mFlag | MemoryFlags.AllocHostPtr | MemoryFlags.CopyHostPtr, array, out err) ;
+            UIntPtr size = new UIntPtr((uint)System.Runtime.InteropServices.Marshal.SizeOf(typeof(T))*(uint)array.Count());
+
+
+            CLBuffer t = CL.CreateBuffer(Gpu_context,mFlag,size,(IntPtr)null,out err);
 
             if (err != CLResultCode.Success) {
                 throw new Exception(String.Format("Unable to load memory: {0}", err.ToString()));                
             }
 
-            return temp;
+            return  t;
         }
     
         private CLProgram CreateProgram(String path){
@@ -91,7 +94,7 @@ namespace OPENCL {
             //Création du programme 
             CLProgram program = CL.CreateProgramWithSource(Gpu_context,Program_Source_Code,out err);
             
-            CL.BuildProgram(program, 1, new[] {Gpu_1}, "-cl-std=CL1.2", new IntPtr(), IntPtr.Zero);
+            CL.BuildProgram(program, 1, new[] {Gpu_1}, null, (IntPtr)null, (IntPtr)null);
 
             byte[] result;
             err = CL.GetProgramBuildInfo(program,Gpu_1,ProgramBuildInfo.Status,out result);
@@ -137,8 +140,13 @@ namespace OPENCL {
         }
 
         public void SetKernelArg(CLKernel kernel,uint index,CLBuffer buffer){
+            
+            //MemoryObjectType.Buffer; //4336
+            //MemoryObjectInfo.Size; //4354
+            byte[] result;
+            CL.GetMemObjectInfo(buffer,MemoryObjectInfo.Size,out result);
 
-            CLResultCode err = CL.SetKernelArg(kernel, index, (UIntPtr)Marshal.SizeOf(typeof(UIntPtr)), buffer);
+            CLResultCode err = CL.SetKernelArg(kernel, index,new UIntPtr(BitConverter.ToUInt32(result)) , buffer);
 
             if (err != CLResultCode.Success) {
                 throw new Exception(err.ToString());

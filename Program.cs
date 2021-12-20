@@ -20,8 +20,10 @@ namespace Test{
 
             CLKernel test = compute.CreateKernel("test.cl","test");
 
-            CLBuffer bf_input = compute.CreateBuffer<float>(MemoryFlags.ReadOnly,input);
-            CLBuffer bf_ouput = compute.CreateBuffer<float>(MemoryFlags.WriteOnly,output);
+            CLBuffer bf_input = compute.CreateBuffer<float>(MemoryFlags.ReadOnly  | MemoryFlags.HostWriteOnly,input);
+            CLBuffer bf_ouput = compute.CreateBuffer<float>(MemoryFlags.WriteOnly | MemoryFlags.HostReadOnly,output);
+
+
 
             compute.SetKernelArg(test,0,bf_input);
             compute.SetKernelArg(test,1,bf_ouput);
