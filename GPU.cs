@@ -17,7 +17,6 @@ namespace OPENCL {
         
 
         public GPU(){
- 
             Gpu_1 = GetGpu();
             Gpu_context = GetContext(Gpu_1);
             commandQueue = InitCommandQueue(Gpu_context,Gpu_1);
@@ -49,7 +48,7 @@ namespace OPENCL {
 
         private CLContext GetContext(CLDevice Gpu_1){
             CLResultCode errorCode;
-            CLContext Gpu_context = CL.CreateContext((IntPtr)null, 1, new CLDevice[] { Gpu_1 }, (IntPtr)null, (IntPtr)null, out errorCode);
+            CLContext Gpu_context = CL.CreateContext((IntPtr)null, 1, new CLDevice[] { Gpu_1 }, (IntPtr)null, IntPtr.Zero, out errorCode);
             if (errorCode != CLResultCode.Success) {
                 throw new Exception("Impossible de créer le contexte");
             }
@@ -67,13 +66,15 @@ namespace OPENCL {
             return commandQueue;
         }
     
-        public CLBuffer CreateBuffer<T>(MemoryFlags mFlag, T[] array){
+        public CLBuffer CreateBuffer<T>(MemoryFlags mFlag, T[] array) where T:unmanaged {
             CLResultCode err = new CLResultCode();
 
-            UIntPtr size = new UIntPtr((uint)System.Runtime.InteropServices.Marshal.SizeOf(typeof(T))*(uint)array.Count());
+            int sizes = Marshal.SizeOf(typeof(T))*array.Count();
+            UIntPtr size = (UIntPtr)sizes;
 
 
             CLBuffer t = CL.CreateBuffer(Gpu_context,mFlag,size,(IntPtr)null,out err);
+            //CLBuffer t = CL.CreateBuffer<T>(Gpu_context,mFlag,array,out err);
 
             if (err != CLResultCode.Success) {
                 throw new Exception(String.Format("Unable to load memory: {0}", err.ToString()));                
@@ -125,8 +126,6 @@ namespace OPENCL {
 
         public void Upload<T>(CLBuffer buffer,T[] data) where T:unmanaged{
 
-            
-
             CL.EnqueueWriteBuffer<T>(
                 commandQueue,
                 buffer,
@@ -139,14 +138,18 @@ namespace OPENCL {
 
         }
 
-        public void SetKernelArg(CLKernel kernel,uint index,CLBuffer buffer){
+        public unsafe void SetKernelArg(CLKernel kernel,uint index,CLBuffer buffer){
             
             //MemoryObjectType.Buffer; //4336
             //MemoryObjectInfo.Size; //4354
+
             byte[] result;
             CL.GetMemObjectInfo(buffer,MemoryObjectInfo.Size,out result);
+            UInt32 size = BitConverter.ToUInt32(result);
+            UInt32 size2 = (UInt32)Marshal.SizeOf(typeof(CLBuffer));
+            UInt32 size3 = (UInt32)Marshal.SizeOf(typeof(IntPtr));
 
-            CLResultCode err = CL.SetKernelArg(kernel, index,new UIntPtr(BitConverter.ToUInt32(result)) , buffer);
+            CLResultCode err = CL.SetKernelArg(kernel, index,(UIntPtr)Marshal.SizeOf(typeof(CLBuffer)),new IntPtr(&buffer));
 
             if (err != CLResultCode.Success) {
                 throw new Exception(err.ToString());

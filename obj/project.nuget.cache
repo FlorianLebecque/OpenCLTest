@@ -1,21 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "nhGa1WOoxFdZ6MMcL59wFxF7d7M9CJ9FNLPfucYLHWpspYZ/S95I/hbBKBs4wUonck5gpF+bhD1/vQGPdaov8Q==",
+  "dgSpecHash": "tpMiJOxFQ64RU8l4BoMs1FbxV5flMYuy08wol9w7IK6Y4kRYlGJpwRA0u+eyfwLXBIZcmPmV0rZchuYEQ/ovRw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Flori\\Desktop\\test\\test.csproj",
+  "projectFilePath": "/home/florian/OpenCLTest/test.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Flori\\.nuget\\packages\\opentk\\4.6.7\\opentk.4.6.7.nupkg.sha512",
-    "C:\\Users\\Flori\\.nuget\\packages\\opentk.compute\\4.6.7\\opentk.compute.4.6.7.nupkg.sha512",
-    "C:\\Users\\Flori\\.nuget\\packages\\opentk.core\\4.6.7\\opentk.core.4.6.7.nupkg.sha512",
-    "C:\\Users\\Flori\\.nuget\\packages\\opentk.graphics\\4.6.7\\opentk.graphics.4.6.7.nupkg.sha512",
-    "C:\\Users\\Flori\\.nuget\\packages\\opentk.input\\4.6.7\\opentk.input.4.6.7.nupkg.sha512",
-    "C:\\Users\\Flori\\.nuget\\packages\\opentk.mathematics\\4.6.7\\opentk.mathematics.4.6.7.nupkg.sha512",
-    "C:\\Users\\Flori\\.nuget\\packages\\opentk.openal\\4.6.7\\opentk.openal.4.6.7.nupkg.sha512",
-    "C:\\Users\\Flori\\.nuget\\packages\\opentk.redist.glfw\\3.3.0-pre20200830200122\\opentk.redist.glfw.3.3.0-pre20200830200122.nupkg.sha512",
-    "C:\\Users\\Flori\\.nuget\\packages\\opentk.windowing.common\\4.6.7\\opentk.windowing.common.4.6.7.nupkg.sha512",
-    "C:\\Users\\Flori\\.nuget\\packages\\opentk.windowing.desktop\\4.6.7\\opentk.windowing.desktop.4.6.7.nupkg.sha512",
-    "C:\\Users\\Flori\\.nuget\\packages\\opentk.windowing.graphicslibraryframework\\4.6.7\\opentk.windowing.graphicslibraryframework.4.6.7.nupkg.sha512",
-    "C:\\Users\\Flori\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+    "/home/florian/.nuget/packages/opentk/4.6.7/opentk.4.6.7.nupkg.sha512",
+    "/home/florian/.nuget/packages/opentk.compute/4.6.7/opentk.compute.4.6.7.nupkg.sha512",
+    "/home/florian/.nuget/packages/opentk.core/4.6.7/opentk.core.4.6.7.nupkg.sha512",
+    "/home/florian/.nuget/packages/opentk.graphics/4.6.7/opentk.graphics.4.6.7.nupkg.sha512",
+    "/home/florian/.nuget/packages/opentk.input/4.6.7/opentk.input.4.6.7.nupkg.sha512",
+    "/home/florian/.nuget/packages/opentk.mathematics/4.6.7/opentk.mathematics.4.6.7.nupkg.sha512",
+    "/home/florian/.nuget/packages/opentk.openal/4.6.7/opentk.openal.4.6.7.nupkg.sha512",
+    "/home/florian/.nuget/packages/opentk.redist.glfw/3.3.0-pre20200830200122/opentk.redist.glfw.3.3.0-pre20200830200122.nupkg.sha512",
+    "/home/florian/.nuget/packages/opentk.windowing.common/4.6.7/opentk.windowing.common.4.6.7.nupkg.sha512",
+    "/home/florian/.nuget/packages/opentk.windowing.desktop/4.6.7/opentk.windowing.desktop.4.6.7.nupkg.sha512",
+    "/home/florian/.nuget/packages/opentk.windowing.graphicslibraryframework/4.6.7/opentk.windowing.graphicslibraryframework.4.6.7.nupkg.sha512",
+    "/home/florian/.nuget/packages/system.runtime.compilerservices.unsafe/5.0.0/system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }
